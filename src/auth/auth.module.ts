@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthService } from './auth.service';
+import { APP_GUARD } from '@nestjs/core';
 import { AuthController } from './auth.controller';
 import { User, AuthSchema } from './entities/auth.entity';
 import { JwtModule } from '@nestjs/jwt';
+import { AuthGuard } from './auth.guard';
+import { RolesGuard } from './roles.guard';
 
 @Module({
   imports: [
@@ -15,6 +18,16 @@ import { JwtModule } from '@nestjs/jwt';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AuthModule {}
