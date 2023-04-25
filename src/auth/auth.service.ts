@@ -217,7 +217,6 @@ export class AuthService {
     const transporter = nodemailer.createTransport({
       // configure nodemailer transport options here
     });
-
     await transporter.sendMail({
       from: 'your-email@example.com',
       to: email,
@@ -225,8 +224,4 @@ export class AuthService {
       html: `Hello,<br><br>We received a request to reset your password. If this was you, please follow the link below to reset your password:<br><br><a href="http://example.com/reset-password/${resetToken}">Reset password</a><br><br>If you did not request a password reset, please ignore this email.<br><br>Best regards,<br>The Example Team`,
     });
   }
-
-
-
-  
 }
